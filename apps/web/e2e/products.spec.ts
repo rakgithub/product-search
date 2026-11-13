@@ -145,10 +145,13 @@ test.describe("Loading, error and empty states", () => {
   test("shows a loading message while the request is pending", async ({ page }) => {
     let release!: () => void;
     const gate = new Promise<void>((resolve) => (release = resolve));
-    await page.route((url) => isSearchCall(url.href), async (route) => {
-      await gate;
-      await route.continue();
-    });
+    await page.route(
+      (url) => isSearchCall(url.href),
+      async (route) => {
+        await gate;
+        await route.continue();
+      },
+    );
 
     await page.goto("/");
     await expect(page.getByText("Loading products...")).toBeVisible();
@@ -159,7 +162,10 @@ test.describe("Loading, error and empty states", () => {
   });
 
   test("shows an error message when the API fails", async ({ page }) => {
-    await page.route((url) => isSearchCall(url.href), (route) => route.fulfill({ status: 500 }));
+    await page.route(
+      (url) => isSearchCall(url.href),
+      (route) => route.fulfill({ status: 500 }),
+    );
 
     await page.goto("/");
 

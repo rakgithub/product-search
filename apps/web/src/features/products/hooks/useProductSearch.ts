@@ -21,6 +21,8 @@ export function useProductSearch() {
 
   useEffect(() => {
     const controller = new AbortController();
+    // Intentional: reset to loading when a new query starts, before the fetch below.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setStatus("loading");
     searchProducts(query.filters, query.page, controller.signal)
       .then((data) => {

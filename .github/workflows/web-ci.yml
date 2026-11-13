@@ -1,0 +1,65 @@
+name: Web CI
+
+on:
+  pull_request:
+    paths: ["apps/web/**", "apps/server/**", "package.json", "pnpm-lock.yaml", ".github/workflows/web-ci.yml"]
+  push:
+    branches: [main]
+
+concurrency:
+  group: web-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm --filter web lint
+      - name: Format check
+        run: pnpm --filter web format:check
+      - name: Typecheck
+        run: pnpm --filter web typecheck
+      - name: Unit tests with coverage
+        run: pnpm --filter web test:coverage
+      - name: Build
+        run: pnpm --filter web build
+
+      - name: Cache Playwright browsers
+        id: pw-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Install Playwright browsers
+        run: pnpm --filter web exec playwright install --with-deps chromium
+      - name: End-to-end tests
+        run: pnpm --filter web test:e2e
+        env:
+          CI: "true"
+
+      - name: Upload Playwright report and traces
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            apps/web/test-results
+            apps/web/playwright-report
+          retention-days: 7
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: apps/web/coverage
+          if-no-files-found: ignore

@@ -6,3 +6,4 @@ blob-report
 playwright/.cache
 .bash_history
 .cache/
+coverage
