@@ -13,7 +13,9 @@ test.describe("Product browsing", () => {
 
     await expect(page.getByRole("heading", { name: "Products", level: 1 })).toBeVisible();
     await expect(cards(page)).toHaveCount(items.length);
-    await expect(page.getByText(`${pagination.total} results`)).toBeVisible();
+    await expect(
+      page.getByText(`Showing 1–${items.length} of ${pagination.total} results`),
+    ).toBeVisible();
     for (const product of items) {
       await expect(page.getByRole("heading", { name: product.name, exact: true })).toBeVisible();
     }
@@ -35,10 +37,12 @@ test.describe("Product browsing", () => {
     await page.goto("/");
     await expect(page.getByText("Page 1 of 2")).toBeVisible();
     await expect(cards(page)).toHaveCount(10);
+    await expect(page.getByText("Showing 1–10 of 12 results")).toBeVisible();
 
     await page.getByRole("button", { name: "Next" }).click();
 
     await expect(page.getByText("Page 2 of 2")).toBeVisible();
+    await expect(page.getByText("Showing 11–12 of 12 results")).toBeVisible();
     await expect(cards(page)).toHaveCount(2);
     await expect(page.getByRole("button", { name: "Next" })).toBeDisabled();
   });
@@ -71,7 +75,7 @@ test.describe("Filters", () => {
     await search(page).click();
 
     await expect(cards(page)).toHaveCount(2);
-    await expect(page.getByText("2 results")).toBeVisible();
+    await expect(page.getByText("Showing 1–2 of 2 results")).toBeVisible();
   });
 
   test("filters by category and brand", async ({ page }) => {
