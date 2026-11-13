@@ -71,7 +71,9 @@ describe("useProductSearch", () => {
 
     act(() => result.current.goToPage(2));
 
-    await waitFor(() => expect(searchProducts).toHaveBeenLastCalledWith(filters, 2, expect.any(AbortSignal)));
+    await waitFor(() =>
+      expect(searchProducts).toHaveBeenLastCalledWith(filters, 2, expect.any(AbortSignal)),
+    );
   });
 
   it("goes back to page 1 on a new search", async () => {
@@ -84,7 +86,11 @@ describe("useProductSearch", () => {
     act(() => result.current.search({ ...EMPTY_FILTERS, q: "x" }));
 
     await waitFor(() =>
-      expect(searchProducts).toHaveBeenLastCalledWith(expect.objectContaining({ q: "x" }), 1, expect.any(AbortSignal)),
+      expect(searchProducts).toHaveBeenLastCalledWith(
+        expect.objectContaining({ q: "x" }),
+        1,
+        expect.any(AbortSignal),
+      ),
     );
   });
 

@@ -15,10 +15,8 @@ export function ProductFilters({ onSearch }: ProductFiltersProps) {
   const max = draft.maxPrice === "" ? undefined : Number(draft.maxPrice);
   const rangeInvalid = min !== undefined && max !== undefined && min > max;
 
-  const update =
-    (field: keyof Filters) =>
-    (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
-      setDraft((d) => ({ ...d, [field]: e.target.value }));
+  const update = (field: keyof Filters) => (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
+    setDraft((d) => ({ ...d, [field]: e.target.value }));
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();

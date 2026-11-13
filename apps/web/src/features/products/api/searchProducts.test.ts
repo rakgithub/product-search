@@ -44,7 +44,10 @@ describe("searchProducts", () => {
   });
 
   it("rejects when the server responds with an error", async () => {
-    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: false, status: 400, statusText: "Bad Request" }));
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({ ok: false, status: 400, statusText: "Bad Request" }),
+    );
 
     await expect(searchProducts(EMPTY_FILTERS)).rejects.toMatchObject({ status: 400 });
   });

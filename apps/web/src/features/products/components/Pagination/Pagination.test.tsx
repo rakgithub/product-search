@@ -3,7 +3,12 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { Pagination } from "./Pagination";
 
-const data = (page: number, totalPages: number) => ({ page, pageSize: 10, total: totalPages * 10, totalPages });
+const data = (page: number, totalPages: number) => ({
+  page,
+  pageSize: 10,
+  total: totalPages * 10,
+  totalPages,
+});
 
 describe("Pagination", () => {
   it("renders nothing when there is only one page", () => {
