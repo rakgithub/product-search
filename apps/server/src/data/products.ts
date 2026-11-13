@@ -1,0 +1,17 @@
+import type { Product } from "../types/product.js";
+
+// In-memory mock catalogue. Swap for a real data source (DB, search index) later.
+export const products: Product[] = [
+  { id: "1", name: "Ibuprofen 400mg", description: "Pain relief tablets for headaches and fever", category: "pain-relief", brand: "Nurofen", price: 6.49 },
+  { id: "2", name: "Paracetamol 500mg", description: "Gentle pain and fever relief tablets", category: "pain-relief", brand: "Ratiopharm", price: 2.99 },
+  { id: "3", name: "Vitamin D3 1000 IU", description: "Daily vitamin D supplement capsules", category: "vitamins", brand: "Doppelherz", price: 8.95 },
+  { id: "4", name: "Vitamin C 500mg", description: "Immune support chewable tablets", category: "vitamins", brand: "Doppelherz", price: 5.49 },
+  { id: "5", name: "Magnesium 400", description: "Magnesium supplement for muscles", category: "vitamins", brand: "Abtei", price: 7.25 },
+  { id: "6", name: "Nasal Spray", description: "Decongestant nasal spray for colds", category: "cold-flu", brand: "Otriven", price: 4.79 },
+  { id: "7", name: "Cough Syrup", description: "Soothing syrup for dry cough", category: "cold-flu", brand: "Prospan", price: 9.99 },
+  { id: "8", name: "Throat Lozenges", description: "Honey lemon lozenges for sore throat", category: "cold-flu", brand: "Dobendan", price: 6.2 },
+  { id: "9", name: "Sunscreen SPF 50", description: "Water-resistant sun protection lotion", category: "skin-care", brand: "Eucerin", price: 18.5 },
+  { id: "10", name: "Moisturising Cream", description: "Intensive cream for dry skin", category: "skin-care", brand: "Eucerin", price: 14.9 },
+  { id: "11", name: "Ibuprofen Gel", description: "Topical pain relief gel for muscles and joints", category: "pain-relief", brand: "Nurofen", price: 11.45 },
+  { id: "12", name: "Hand Cream", description: "Repairing hand cream for cracked skin", category: "skin-care", brand: "Neutrogena", price: 4.5 },
+];

@@ -1,0 +1,16 @@
+{
+  "name": "monorepo",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm -r --parallel dev",
+    "dev:web": "pnpm --filter web dev",
+    "dev:server": "pnpm --filter server dev",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "test:web": "pnpm --filter web test",
+    "test:server": "pnpm --filter server test",
+    "test:e2e": "pnpm --filter web test:e2e",
+    "test:e2e:ui": "pnpm --filter web test:e2e:ui"
+  }
+}
