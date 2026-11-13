@@ -21,7 +21,10 @@ describe("GET /products", () => {
   });
 
   it("is not limited to one page, unlike /search", async () => {
-    const [all, search] = await Promise.all([request(app).get("/products"), request(app).get("/search")]);
+    const [all, search] = await Promise.all([
+      request(app).get("/products"),
+      request(app).get("/search"),
+    ]);
     expect(all.body.items.length).toBeGreaterThan(search.body.items.length);
   });
 });

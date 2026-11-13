@@ -1,7 +1,11 @@
 import { OpenAPIRegistry, OpenApiGeneratorV3 } from "@asteasolutions/zod-to-openapi";
 import "./extend.js";
 import { productListResponseSchema } from "../schemas/product.schema.js";
-import { errorResponseSchema, searchQuerySchema, searchResponseSchema } from "../schemas/search.schema.js";
+import {
+  errorResponseSchema,
+  searchQuerySchema,
+  searchResponseSchema,
+} from "../schemas/search.schema.js";
 
 const registry = new OpenAPIRegistry();
 

@@ -1,12 +1,12 @@
 # product-search
 
 pnpm monorepo: `apps/web` (React 18 + Vite + TypeScript) and `apps/server` (Express + zod, port 3001).
-Work in `apps/web` unless the task says otherwise; see `apps/web/CLAUDE.md`.
+Each app has its own conventions: `apps/web/CLAUDE.md` and `apps/server/CLAUDE.md`. Read the one for the app you are changing.
 
 ## Commands (run from repo root)
 
 - `pnpm dev` - web (5173) and API (3001) together
-- `pnpm verify:web` - the definition of done for web changes (see below)
+- `pnpm verify:web` / `pnpm verify:server` - the definition of done per app; `pnpm verify` runs both
 - `pnpm test:server`, `pnpm typecheck`, `pnpm build`
 
 ## Rules

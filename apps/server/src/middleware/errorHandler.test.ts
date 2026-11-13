@@ -25,7 +25,12 @@ describe("notFound", () => {
 describe("errorHandler", () => {
   it("responds with the AppError status, message and details", () => {
     const res = mockRes();
-    errorHandler(new AppError(400, "Bad", [{ field: "q" }]), {} as Request, res as unknown as Response, vi.fn());
+    errorHandler(
+      new AppError(400, "Bad", [{ field: "q" }]),
+      {} as Request,
+      res as unknown as Response,
+      vi.fn(),
+    );
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({ error: { message: "Bad", details: [{ field: "q" }] } });
   });
@@ -33,7 +38,12 @@ describe("errorHandler", () => {
   it("hides internals for unexpected errors and returns 500", () => {
     vi.spyOn(console, "error").mockImplementation(() => {});
     const res = mockRes();
-    errorHandler(new Error("db password leaked"), {} as Request, res as unknown as Response, vi.fn());
+    errorHandler(
+      new Error("db password leaked"),
+      {} as Request,
+      res as unknown as Response,
+      vi.fn(),
+    );
     expect(res.status).toHaveBeenCalledWith(500);
     expect(res.json).toHaveBeenCalledWith({ error: { message: "Internal server error" } });
   });

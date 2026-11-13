@@ -49,7 +49,9 @@ describe("searchProducts", () => {
     });
 
     it("combines filters with AND", () => {
-      expect(ids(searchProducts({ ...base, category: "cat-a", brand: "acme", minPrice: 1 }, data))).toEqual(["1"]);
+      expect(
+        ids(searchProducts({ ...base, category: "cat-a", brand: "acme", minPrice: 1 }, data)),
+      ).toEqual(["1"]);
     });
   });
 
@@ -65,7 +67,11 @@ describe("searchProducts", () => {
     });
 
     it("keeps catalogue order for equal scores", () => {
-      expect(ids(searchProducts({ ...base, q: "aspirin" }, data))).toEqual(["name", "desc", "brand"]);
+      expect(ids(searchProducts({ ...base, q: "aspirin" }, data))).toEqual([
+        "name",
+        "desc",
+        "brand",
+      ]);
     });
 
     it("is case-insensitive", () => {
@@ -103,7 +109,10 @@ describe("searchProducts", () => {
     });
 
     it("applies sort after filtering", () => {
-      expect(ids(searchProducts({ ...base, sort: "price_desc", minPrice: 15 }, data))).toEqual(["3", "1"]);
+      expect(ids(searchProducts({ ...base, sort: "price_desc", minPrice: 15 }, data))).toEqual([
+        "3",
+        "1",
+      ]);
     });
   });
 
@@ -117,7 +126,13 @@ describe("searchProducts", () => {
     });
 
     it("returns the remainder on the last page", () => {
-      expect(ids(searchProducts({ ...base, page: 3 }, data))).toEqual(["21", "22", "23", "24", "25"]);
+      expect(ids(searchProducts({ ...base, page: 3 }, data))).toEqual([
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+      ]);
     });
 
     it("returns empty items for a page past the end, keeping totals", () => {
@@ -128,7 +143,10 @@ describe("searchProducts", () => {
 
     it("reports zero pages when there are no results", () => {
       expect(searchProducts({ ...base, q: "zzz" }, data).pagination).toEqual({
-        page: 1, pageSize: 10, total: 0, totalPages: 0,
+        page: 1,
+        pageSize: 10,
+        total: 0,
+        totalPages: 0,
       });
     });
   });

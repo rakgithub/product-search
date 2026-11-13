@@ -1,0 +1,41 @@
+name: Server CI
+
+on:
+  pull_request:
+    paths: ["apps/server/**", "package.json", "pnpm-lock.yaml", ".github/workflows/server-ci.yml"]
+  push:
+    branches: [main]
+
+concurrency:
+  group: server-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Lint
+        run: pnpm --filter server lint
+      - name: Format check
+        run: pnpm --filter server format:check
+      - name: Typecheck
+        run: pnpm --filter server typecheck
+      - name: Unit and API tests with coverage
+        run: pnpm --filter server test:coverage
+      - name: Build
+        run: pnpm --filter server build
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: server-coverage
+          path: apps/server/coverage
+          if-no-files-found: ignore

@@ -2,7 +2,13 @@ import { z } from "zod";
 import "../openapi/extend.js";
 import { productSchema } from "./product.schema.js";
 
-export const SORT_OPTIONS = ["relevance", "price_asc", "price_desc", "name_asc", "name_desc"] as const;
+export const SORT_OPTIONS = [
+  "relevance",
+  "price_asc",
+  "price_desc",
+  "name_asc",
+  "name_desc",
+] as const;
 export const PAGE_SIZE = 10;
 
 // `?q=` sends an empty string; treat empty/whitespace-only values as "not provided".
@@ -16,9 +22,18 @@ const emptyToUndefined = (v: unknown) => (v === "" ? undefined : v);
 
 export const searchQuerySchema = z
   .object({
-    q: optionalText(100).openapi({ description: "Free-text search; every word must match", example: "ibuprofen" }),
-    category: optionalText(50).openapi({ description: "Exact category, case-insensitive", example: "pain-relief" }),
-    brand: optionalText(50).openapi({ description: "Exact brand, case-insensitive", example: "Nurofen" }),
+    q: optionalText(100).openapi({
+      description: "Free-text search; every word must match",
+      example: "ibuprofen",
+    }),
+    category: optionalText(50).openapi({
+      description: "Exact category, case-insensitive",
+      example: "pain-relief",
+    }),
+    brand: optionalText(50).openapi({
+      description: "Exact brand, case-insensitive",
+      example: "Nurofen",
+    }),
     minPrice: z
       .preprocess(emptyToUndefined, z.coerce.number().finite().nonnegative().optional())
       .openapi({ description: "Minimum price (inclusive)", example: 5 }),
