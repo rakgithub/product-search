@@ -2,7 +2,7 @@ name: Web CI
 
 on:
   pull_request:
-    paths: ["apps/web/**", "apps/server/**", "package.json", "pnpm-lock.yaml", ".github/workflows/web-ci.yml"]
+    paths: ["apps/web/**", "package.json", "pnpm-lock.yaml", ".github/workflows/web-ci.yml"]
   push:
     branches: [main]
 

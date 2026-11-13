@@ -9,9 +9,15 @@ describe("OpenAPI docs", () => {
     const res = await request(app).get("/openapi.json");
     expect(res.status).toBe(200);
     const op = res.body.paths["/search"].get;
-    expect(op.parameters.map((p: { name: string }) => p.name)).toEqual(
-      ["q", "category", "brand", "minPrice", "maxPrice", "sort", "page"],
-    );
+    expect(op.parameters.map((p: { name: string }) => p.name)).toEqual([
+      "q",
+      "category",
+      "brand",
+      "minPrice",
+      "maxPrice",
+      "sort",
+      "page",
+    ]);
     expect(res.body.paths).toHaveProperty(["/products", "get"]);
     expect(res.body.components.schemas).toHaveProperty("Product");
   });

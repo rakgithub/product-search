@@ -3,7 +3,12 @@ import type { Product } from "../types/product.js";
 import { listProducts } from "./products.service.js";
 
 const p = (id: string): Product => ({
-  id, name: `P${id}`, description: "d", category: "c", brand: "b", price: 1,
+  id,
+  name: `P${id}`,
+  description: "d",
+  category: "c",
+  brand: "b",
+  price: 1,
 });
 
 describe("listProducts", () => {

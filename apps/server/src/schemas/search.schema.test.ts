@@ -7,7 +7,14 @@ describe("searchQuerySchema", () => {
   });
 
   it("treats empty strings as not provided", () => {
-    const r = searchQuerySchema.parse({ q: "", category: "  ", brand: "", minPrice: "", sort: "", page: "" });
+    const r = searchQuerySchema.parse({
+      q: "",
+      category: "  ",
+      brand: "",
+      minPrice: "",
+      sort: "",
+      page: "",
+    });
     expect(r).toEqual({ sort: "relevance", page: 1 });
   });
 
